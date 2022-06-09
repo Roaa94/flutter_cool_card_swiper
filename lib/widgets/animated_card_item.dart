@@ -25,7 +25,8 @@ class AnimatedCardItem extends StatefulWidget {
 class _CardState extends State<AnimatedCardItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
-  late final Animation<double> rotationAnimation;
+
+  late Animation<double> rotationAnimation;
   late final Animation<double> slideUpAnimation;
   late Animation<double> slideDownAnimation;
   late final Animation<double> scaleAnimation;
@@ -89,6 +90,11 @@ class _CardState extends State<AnimatedCardItem>
         final xPosition = details.globalPosition.dx;
         final yPosition = details.localPosition.dy;
         // print('drag start global x position & local y positions [$xPosition, $yPosition]');
+        final isAngleNegative = xPosition > screenWidth / 2;
+        rotationAnimation = Tween<double>(
+          begin: 0,
+          end: Constants.rotationAnimationAngleDeg * (isAngleNegative ? -1 : 1),
+        ).animate(animationController);
 
         setState(() {
           dragStartRotationAlignment = getDragStartPositionAlignment(
@@ -97,8 +103,8 @@ class _CardState extends State<AnimatedCardItem>
             screenWidth,
             Constants.cardHeight,
           );
-          dragStartAngle = Constants.dragStartEndAngle *
-              (xPosition > screenWidth / 2 ? -1 : 1);
+          dragStartAngle =
+              Constants.dragStartEndAngle * (isAngleNegative ? -1 : 1);
         });
       },
       onVerticalDragUpdate: (DragUpdateDetails details) {
@@ -118,10 +124,10 @@ class _CardState extends State<AnimatedCardItem>
             parent: animationController,
             curve: const Interval(0.5, 1, curve: Curves.linear),
           ));
+
           animationController.forward().then((value) {
             setState(() {
               widget.onVerticalDragEnd();
-              // yDragOffset = 0;
               dragStartAngle = 0;
             });
           });
@@ -135,7 +141,7 @@ class _CardState extends State<AnimatedCardItem>
       child: TweenAnimationBuilder<double>(
         tween: Tween<double>(begin: 0, end: yDragOffset),
         duration: const Duration(milliseconds: 100),
-        curve: Curves.ease,
+        curve: Curves.easeOut,
         builder: (c, double value, child) => Transform.translate(
           offset: Offset(0, value),
           child: child,

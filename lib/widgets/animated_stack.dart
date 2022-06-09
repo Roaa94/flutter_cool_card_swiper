@@ -17,35 +17,35 @@ class _AnimatedStackState extends State<AnimatedStack> {
   final ValueNotifier<bool> flipNotifier = ValueNotifier<bool>(true);
   bool fireBackgroundCardsAnimation = false;
 
-  // late Map<int, double> scales = {};
-  // late Map<int, double> yOffsets = {};
-
   List<Widget> get _stackChildren => List.generate(
-    Data.cards.length,
+        Data.cards.length,
         (i) {
-      final AnimatedCard card = Data.cards[i];
+          final AnimatedCard card = Data.cards[i];
 
-      return AnimatedCardItem(
-        key: ValueKey('__animated_card_${i}__'),
-        card: card,
-        onAnimationTrigger: _onAnimationTrigger,
-        onVerticalDragEnd: _onVerticalDragEnd,
+          return AnimatedCardItem(
+            key: ValueKey('__animated_card_${i}__'),
+            card: card,
+            onAnimationTrigger: _onAnimationTrigger,
+            onVerticalDragEnd: () {},
+          );
+        },
       );
-    },
-  );
 
   void _onAnimationTrigger() async {
     setState(() {
       fireBackgroundCardsAnimation = true;
     });
-    await Future.delayed(Constants.backgroundCardsAnimationDuration);
-    flipNotifier.value = false;
-  }
-
-  void _onVerticalDragEnd() async {
-    await Future.delayed(Constants.swipeAnimationDuration);
-    flipNotifier.value = true;
-    _swapLast();
+    Future.delayed(Constants.backgroundCardsAnimationDuration).then(
+      (_) {
+        flipNotifier.value = false;
+      },
+    );
+    Future.delayed(Constants.swipeAnimationDuration).then(
+      (_) {
+        flipNotifier.value = true;
+        _swapLast();
+      },
+    );
   }
 
   void _swapLast() {
@@ -88,7 +88,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
     return Stack(
       children: List.generate(
         Data.cards.length - 1,
-            (i) => stackChild(i),
+        (i) => stackChild(i),
       ),
     );
   }
