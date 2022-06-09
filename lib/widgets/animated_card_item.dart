@@ -49,7 +49,7 @@ class _CardState extends State<AnimatedCardItem>
 
     scaleAnimation = Tween<double>(
       begin: 1,
-      end: 0.5,
+      end: 1 - ((Data.cards.length - 1) * Constants.scaleFraction),
     ).animate(animationController);
 
     slideUpAnimation = Tween<double>(
@@ -62,7 +62,7 @@ class _CardState extends State<AnimatedCardItem>
 
     slideDownAnimation = Tween<double>(
       begin: 0,
-      end: Constants.throwSlideYDistance,
+      end: 0,
     ).animate(CurvedAnimation(
       parent: animationController,
       curve: const Interval(
@@ -109,17 +109,15 @@ class _CardState extends State<AnimatedCardItem>
       onVerticalDragEnd: (DragEndDetails details) {
         if (yDragOffset.abs() > Constants.initAnimationOffset) {
           widget.onAnimationTrigger();
-          setState(() {
-            slideDownAnimation = Tween<double>(
-              begin: 0,
-              end: Constants.throwSlideYDistance +
-                  yDragOffset.abs() -
-                  (Data.cards.length - 1) * 20,
-            ).animate(CurvedAnimation(
-              parent: animationController,
-              curve: const Interval(0.5, 1, curve: Curves.linear),
-            ));
-          });
+          slideDownAnimation = Tween<double>(
+            begin: 0,
+            end: Constants.throwSlideYDistance +
+                yDragOffset.abs() -
+                (Data.cards.length - 1) * Constants.yOffset,
+          ).animate(CurvedAnimation(
+            parent: animationController,
+            curve: const Interval(0.5, 1, curve: Curves.linear),
+          ));
           animationController.forward().then((value) {
             setState(() {
               widget.onVerticalDragEnd();
@@ -136,7 +134,8 @@ class _CardState extends State<AnimatedCardItem>
       },
       child: TweenAnimationBuilder<double>(
         tween: Tween<double>(begin: 0, end: yDragOffset),
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.ease,
         builder: (c, double value, child) => Transform.translate(
           offset: Offset(0, value),
           child: child,

@@ -11,25 +11,11 @@ class Data {
     Colors.pink.shade200,
   ];
 
-  static List<AnimatedCard> cards = [
-    // ...backCards,
-    ...frontCards,
-  ];
-
-  static List<AnimatedCard> frontCards = List.generate(
+  static List<AnimatedCard> cards = List.generate(
     colors.length,
     (index) => AnimatedCard(
       color: colors[index],
       order: index,
     ),
   ).reversed.toList();
-
-  static List<AnimatedCard> backCards = List.generate(
-    colors.length,
-    (index) => AnimatedCard(
-      color: colors[index],
-      order: index,
-      isMirror: true,
-    ),
-  );
 }

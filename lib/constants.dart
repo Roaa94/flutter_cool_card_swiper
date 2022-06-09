@@ -3,11 +3,11 @@ class Constants {
   static const double cardHeight = 220;
   static const double dragStartEndAngle = 0.01;
 
-  static const double scaleFraction = 0.1;
-  static const double yOffset = 20;
+  static const double scaleFraction = 0.04;
+  static const double yOffset = 12;
 
   static const double throwSlideYDistance = 200;
 
   static const Duration backgroundCardsAnimationDuration = Duration(milliseconds: 300);
-  static const Duration swipeAnimationDuration = Duration(milliseconds: 800);
+  static const Duration swipeAnimationDuration = Duration(milliseconds: 600);
 }
