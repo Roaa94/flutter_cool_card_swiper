@@ -25,7 +25,8 @@ class _CoolSwiperState extends State<CoolSwiper>
   late final AnimationController backgroundCardsAnimationController;
 
   late final List<Widget> stackChildren;
-  final ValueNotifier<bool> flipNotifier = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _backgroundCardsAreInFrontNotifier =
+      ValueNotifier<bool>(false);
   bool fireBackgroundCardsAnimation = false;
 
   late final List<SwiperCard> _cards;
@@ -51,12 +52,12 @@ class _CoolSwiperState extends State<CoolSwiper>
     backgroundCardsAnimationController.forward();
     Future.delayed(Constants.backgroundCardsAnimationDuration).then(
       (_) {
-        flipNotifier.value = false;
+        _backgroundCardsAreInFrontNotifier.value = true;
       },
     );
     Future.delayed(Constants.swipeAnimationDuration).then(
       (_) {
-        flipNotifier.value = true;
+        _backgroundCardsAreInFrontNotifier.value = false;
         backgroundCardsAnimationController.reset();
         _swapLast();
       },
@@ -95,17 +96,19 @@ class _CoolSwiperState extends State<CoolSwiper>
     return Stack(
       children: [
         ValueListenableBuilder(
-          valueListenable: flipNotifier,
-          builder: (c, bool flip, _) => flip
-              ? _buildBackgroundCardsStack()
-              : Positioned(child: Container()),
+          valueListenable: _backgroundCardsAreInFrontNotifier,
+          builder: (c, bool backgroundCardsAreInFront, _) =>
+              backgroundCardsAreInFront
+                  ? Positioned(child: Container())
+                  : _buildBackgroundCardsStack(),
         ),
         _buildFrontCard(),
         ValueListenableBuilder(
-          valueListenable: flipNotifier,
-          builder: (c, bool flip, _) => flip
-              ? Positioned(child: Container())
-              : _buildBackgroundCardsStack(),
+          valueListenable: _backgroundCardsAreInFrontNotifier,
+          builder: (c, bool backgroundCardsAreInFront, _) =>
+              backgroundCardsAreInFront
+                  ? _buildBackgroundCardsStack()
+                  : Positioned(child: Container()),
         ),
       ],
     );
