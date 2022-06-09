@@ -45,7 +45,10 @@ class _CardState extends State<SwiperCardItem>
     rotationAnimation = Tween<double>(
       begin: 0,
       end: -360,
-    ).animate(animationController);
+    ).animate(CurvedAnimation(
+      parent: animationController,
+      curve: Curves.easeInOut,
+    ));
 
     scaleAnimation = Tween<double>(
       begin: 1,

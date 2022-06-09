@@ -5,11 +5,11 @@ class Constants {
 
   static const double rotationAnimationAngleDeg = 360;
 
-  static const double scaleFraction = 0.04;
-  static const double yOffset = 12;
+  static const double scaleFraction = 0.05;
+  static const double yOffset = 13;
 
   static const double throwSlideYDistance = 200;
 
   static const Duration backgroundCardsAnimationDuration = Duration(milliseconds: 300);
-  static const Duration swipeAnimationDuration = Duration(milliseconds: 600);
+  static const Duration swipeAnimationDuration = Duration(milliseconds: 500);
 }
