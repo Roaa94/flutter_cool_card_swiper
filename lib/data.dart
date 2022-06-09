@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/models/animated_card.dart';
+import 'package:flutter_card_swiper/models/swiper_card.dart';
 
 class Data {
   static List<Color> colors = [
@@ -11,9 +11,9 @@ class Data {
     Colors.pink.shade200,
   ];
 
-  static List<AnimatedCard> cards = List.generate(
+  static List<SwiperCard> cards = List.generate(
     colors.length,
-    (index) => AnimatedCard(
+    (index) => SwiperCard(
       color: colors[index],
       order: index,
     ),

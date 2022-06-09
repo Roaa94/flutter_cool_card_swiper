@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/constants.dart';
 
-class AnimatedCardWrapper extends StatefulWidget {
+class SwiperCardWrapper extends StatefulWidget {
   final Widget child;
   final double initialScale;
   final double initialYOffset;
   final bool fire;
   final AnimationController animationController;
 
-  const AnimatedCardWrapper({
+  const SwiperCardWrapper({
     Key? key,
     required this.child,
     this.initialScale = 1,
@@ -18,10 +18,10 @@ class AnimatedCardWrapper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<AnimatedCardWrapper> createState() => _AnimatedCardWrapperState();
+  State<SwiperCardWrapper> createState() => _SwiperCardWrapperState();
 }
 
-class _AnimatedCardWrapperState extends State<AnimatedCardWrapper>
+class _SwiperCardWrapperState extends State<SwiperCardWrapper>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<double> yOffsetAnimation;
