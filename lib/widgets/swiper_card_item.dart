@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/constants.dart';
-import 'package:flutter_card_swiper/data.dart';
 import 'package:flutter_card_swiper/models/swiper_card.dart';
 import 'package:flutter_card_swiper/utils.dart';
 
@@ -50,7 +49,7 @@ class _CardState extends State<SwiperCardItem>
 
     scaleAnimation = Tween<double>(
       begin: 1,
-      end: 1 - ((Data.cards.length - 1) * Constants.scaleFraction),
+      end: 1 - ((widget.card.totalCount - 1) * Constants.scaleFraction),
     ).animate(animationController);
 
     slideUpAnimation = Tween<double>(
@@ -119,7 +118,7 @@ class _CardState extends State<SwiperCardItem>
             begin: 0,
             end: Constants.throwSlideYDistance +
                 yDragOffset.abs() -
-                (Data.cards.length - 1) * Constants.yOffset,
+                (widget.card.totalCount - 1) * Constants.yOffset,
           ).animate(CurvedAnimation(
             parent: animationController,
             curve: const Interval(0.5, 1, curve: Curves.linear),
@@ -148,6 +147,7 @@ class _CardState extends State<SwiperCardItem>
         ),
         child: AnimatedBuilder(
           animation: animationController,
+          child: widget.card.child,
           builder: (c, child) {
             return Transform.translate(
               offset: Offset(0, slideUpAnimation.value),
@@ -162,13 +162,7 @@ class _CardState extends State<SwiperCardItem>
                       turns: dragStartAngle,
                       alignment: dragStartRotationAlignment,
                       duration: const Duration(milliseconds: 200),
-                      child: Container(
-                        height: Constants.cardHeight,
-                        decoration: BoxDecoration(
-                          color: widget.card.color,
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
+                      child: child,
                     ),
                   ),
                 ),

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/constants.dart';
-import 'package:flutter_card_swiper/data.dart';
-import 'package:flutter_card_swiper/widgets/swiper_card_wrapper.dart';
+import 'package:flutter_card_swiper/models/swiper_card.dart';
 import 'package:flutter_card_swiper/widgets/swiper_card_item.dart';
+import 'package:flutter_card_swiper/widgets/swiper_card_wrapper.dart';
 
 class CoolSwiper extends StatefulWidget {
-  const CoolSwiper({Key? key}) : super(key: key);
+  final List<Widget> children;
+
+  const CoolSwiper({
+    Key? key,
+    required this.children,
+  }) : super(key: key);
 
   @override
   State<CoolSwiper> createState() => _CoolSwiperState();
@@ -19,12 +24,14 @@ class _CoolSwiperState extends State<CoolSwiper>
   final ValueNotifier<bool> flipNotifier = ValueNotifier<bool>(true);
   bool fireBackgroundCardsAnimation = false;
 
+  late final List<SwiperCard> _cards;
+
   List<Widget> get _stackChildren => List.generate(
-        Data.cards.length,
+        _cards.length,
         (i) {
           return SwiperCardItem(
             key: ValueKey('__animated_card_${i}__'),
-            card: Data.cards[i],
+            card: _cards[i],
             onAnimationTrigger: _onAnimationTrigger,
             onVerticalDragEnd: () {},
           );
@@ -62,6 +69,7 @@ class _CoolSwiperState extends State<CoolSwiper>
   @override
   void initState() {
     super.initState();
+    _cards = SwiperCard.listFromWidgets(widget.children);
     stackChildren = _stackChildren;
 
     backgroundCardsAnimationController = AnimationController(
@@ -100,14 +108,14 @@ class _CoolSwiperState extends State<CoolSwiper>
   Widget _buildBackgroundCardsStack() {
     return Stack(
       children: List.generate(
-        Data.cards.length - 1,
+        _cards.length - 1,
         (i) => _buildStackChild(i),
       ),
     );
   }
 
   Widget _buildFrontCard() {
-    return _buildStackChild(Data.cards.length - 1);
+    return _buildStackChild(_cards.length - 1);
   }
 
   Widget _buildStackChild(int i) {
@@ -119,8 +127,8 @@ class _CoolSwiperState extends State<CoolSwiper>
         ignoring: i != stackChildren.length - 1,
         child: SwiperCardWrapper(
           animationController: backgroundCardsAnimationController,
-          initialScale: Data.cards[i].scale,
-          initialYOffset: Data.cards[i].yOffset,
+          initialScale: _cards[i].scale,
+          initialYOffset: _cards[i].yOffset,
           child: stackChildren[i],
         ),
       ),
