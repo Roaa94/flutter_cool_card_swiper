@@ -6,6 +6,7 @@ class AnimatedCardWrapper extends StatefulWidget {
   final double initialScale;
   final double initialYOffset;
   final bool fire;
+  final AnimationController animationController;
 
   const AnimatedCardWrapper({
     Key? key,
@@ -13,6 +14,7 @@ class AnimatedCardWrapper extends StatefulWidget {
     this.initialScale = 1,
     this.initialYOffset = 0,
     this.fire = false,
+    required this.animationController,
   }) : super(key: key);
 
   @override
@@ -28,26 +30,27 @@ class _AnimatedCardWrapperState extends State<AnimatedCardWrapper>
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
-      vsync: this,
-      duration: Constants.backgroundCardsAnimationDuration,
-    );
+    animationController = widget.animationController;
 
     yOffsetAnimation = Tween<double>(
       begin: widget.initialYOffset,
-      end: widget.initialYOffset + Constants.yOffset,
-    ).animate(animationController);
+      end: widget.initialYOffset - Constants.yOffset,
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeOutBack,
+      ),
+    );
 
     scaleAnimation = Tween<double>(
       begin: widget.initialScale,
       end: widget.initialScale + Constants.scaleFraction,
-    ).animate(animationController);
-  }
-
-  @override
-  void didUpdateWidget(covariant AnimatedCardWrapper oldWidget) {
-    print('widget.fire');
-    print(widget.fire);
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeOutBack,
+      ),
+    );
   }
 
   @override

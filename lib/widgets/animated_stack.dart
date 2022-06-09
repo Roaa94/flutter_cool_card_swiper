@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/constants.dart';
 import 'package:flutter_card_swiper/data.dart';
-import 'package:flutter_card_swiper/models/animated_card.dart';
 import 'package:flutter_card_swiper/widgets/animated_card_item.dart';
 import 'package:flutter_card_swiper/widgets/animated_card_wrapper.dart';
 
@@ -12,7 +11,10 @@ class AnimatedStack extends StatefulWidget {
   State<AnimatedStack> createState() => _AnimatedStackState();
 }
 
-class _AnimatedStackState extends State<AnimatedStack> {
+class _AnimatedStackState extends State<AnimatedStack>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController backgroundCardsanimationController;
+
   late final List<Widget> stackChildren;
   final ValueNotifier<bool> flipNotifier = ValueNotifier<bool>(true);
   bool fireBackgroundCardsAnimation = false;
@@ -20,11 +22,9 @@ class _AnimatedStackState extends State<AnimatedStack> {
   List<Widget> get _stackChildren => List.generate(
         Data.cards.length,
         (i) {
-          final AnimatedCard card = Data.cards[i];
-
           return AnimatedCardItem(
             key: ValueKey('__animated_card_${i}__'),
-            card: card,
+            card: Data.cards[i],
             onAnimationTrigger: _onAnimationTrigger,
             onVerticalDragEnd: () {},
           );
@@ -35,6 +35,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
     setState(() {
       fireBackgroundCardsAnimation = true;
     });
+    backgroundCardsanimationController.forward();
     Future.delayed(Constants.backgroundCardsAnimationDuration).then(
       (_) {
         flipNotifier.value = false;
@@ -43,6 +44,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
     Future.delayed(Constants.swipeAnimationDuration).then(
       (_) {
         flipNotifier.value = true;
+        backgroundCardsanimationController.reset();
         _swapLast();
       },
     );
@@ -61,6 +63,17 @@ class _AnimatedStackState extends State<AnimatedStack> {
   void initState() {
     super.initState();
     stackChildren = _stackChildren;
+
+    backgroundCardsanimationController = AnimationController(
+      vsync: this,
+      duration: Constants.backgroundCardsAnimationDuration,
+    );
+  }
+
+  @override
+  void dispose() {
+    backgroundCardsanimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,7 +86,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
               ? _buildBackgroundCardsStack()
               : Positioned(child: Container()),
         ),
-        getFrontCard(),
+        _buildFrontCard(),
         ValueListenableBuilder(
           valueListenable: flipNotifier,
           builder: (c, bool flip, _) => flip
@@ -88,16 +101,16 @@ class _AnimatedStackState extends State<AnimatedStack> {
     return Stack(
       children: List.generate(
         Data.cards.length - 1,
-        (i) => stackChild(i),
+        (i) => _buildStackChild(i),
       ),
     );
   }
 
-  Widget getFrontCard() {
-    return stackChild(Data.cards.length - 1);
+  Widget _buildFrontCard() {
+    return _buildStackChild(Data.cards.length - 1);
   }
 
-  Widget stackChild(int i) {
+  Widget _buildStackChild(int i) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -105,6 +118,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
       child: IgnorePointer(
         ignoring: i != stackChildren.length - 1,
         child: AnimatedCardWrapper(
+          animationController: backgroundCardsanimationController,
           initialScale: Data.cards[i].scale,
           initialYOffset: Data.cards[i].yOffset,
           child: stackChildren[i],
