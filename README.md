@@ -1,16 +1,5 @@
-# flutter_card_swiper
+# Flutter Cool Card Swiper
 
-A new Flutter project.
+Inspired by [the original Swift UI implementation](https://twitter.com/philipcdavis/status/1534192823792128000) by [@philipcdavis](https://twitter.com/philipcdavis) 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+More details coming soon....
