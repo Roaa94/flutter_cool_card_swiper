@@ -5,6 +5,9 @@ import 'package:flutter_card_swiper/src/constants.dart';
 import 'package:flutter_card_swiper/src/models/swiper_card.dart';
 import 'package:flutter_card_swiper/utils.dart';
 
+/// This is the widget responsible for user drag & release animations
+///
+/// It also sends drag information to root stack widget
 class CoolSwiperCard extends StatefulWidget {
   final SwiperCard card;
   final Function onAnimationTrigger;

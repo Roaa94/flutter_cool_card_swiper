@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/src/constants.dart';
 import 'package:flutter_card_swiper/src/models/swiper_card.dart';
 import 'package:flutter_card_swiper/src/widgets/cool_swiper_card.dart';
-import 'package:flutter_card_swiper/src/widgets/swiper_card_wrapper.dart';
+import 'package:flutter_card_swiper/src/widgets/cool_swiper_card_wrapper.dart';
 
 class CoolSwiper extends StatefulWidget {
   final List<Widget> children;
@@ -125,7 +125,7 @@ class _CoolSwiperState extends State<CoolSwiper>
       right: 0,
       child: IgnorePointer(
         ignoring: i != stackChildren.length - 1,
-        child: SwiperCardWrapper(
+        child: CoolSwiperCardWrapper(
           animationController: backgroundCardsAnimationController,
           initialScale: _cards[i].scale,
           initialYOffset: _cards[i].yOffset,
