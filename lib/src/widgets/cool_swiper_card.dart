@@ -12,12 +12,16 @@ class CoolSwiperCard extends StatefulWidget {
   final SwiperCard card;
   final Function onAnimationTrigger;
   final Function onVerticalDragEnd;
+  final double height;
+  final double initAnimationOffset;
 
   const CoolSwiperCard({
     Key? key,
     required this.card,
     required this.onAnimationTrigger,
     required this.onVerticalDragEnd,
+    required this.height,
+    required this.initAnimationOffset,
   }) : super(key: key);
 
   @override
@@ -62,7 +66,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
         xPosition,
         yPosition,
         screenWidth,
-        Constants.cardHeight,
+        widget.height,
       );
       dragStartAngle = Constants.dragStartEndAngle * angleMultiplier;
       // If the drag duration is larger than zero, rest to zero
@@ -86,7 +90,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   /// called to let it know that it can swap the background cards and brings
   /// them forward to reset the indices and allow for the next card to be dragged & animated
   void _onVerticalDragEnd(DragEndDetails details) {
-    if ((yDragOffset * -1) > Constants.initAnimationOffset) {
+    if ((yDragOffset * -1) > widget.initAnimationOffset) {
       widget.onAnimationTrigger();
       slideDownAnimationTween.end = Constants.throwSlideYDistance +
           yDragOffset.abs() -

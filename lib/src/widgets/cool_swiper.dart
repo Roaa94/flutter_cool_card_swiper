@@ -6,10 +6,14 @@ import 'package:flutter_card_swiper/src/widgets/cool_swiper_card_wrapper.dart';
 
 class CoolSwiper extends StatefulWidget {
   final List<Widget> children;
+  final double initAnimationOffset;
+  final double cardHeight;
 
   const CoolSwiper({
     Key? key,
     required this.children,
+    this.initAnimationOffset = Constants.initAnimationOffset,
+    this.cardHeight = Constants.cardHeight,
   }) : super(key: key);
 
   @override
@@ -32,6 +36,8 @@ class _CoolSwiperState extends State<CoolSwiper>
           return CoolSwiperCard(
             key: ValueKey('__animated_card_${i}__'),
             card: _cards[i],
+            height: widget.cardHeight,
+            initAnimationOffset: widget.initAnimationOffset,
             onAnimationTrigger: _onAnimationTrigger,
             onVerticalDragEnd: () {},
           );
