@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/data.dart';
 import 'package:flutter_card_swiper/widgets/card_content.dart';
-import 'package:flutter_card_swiper/widgets/cool_swiper.dart';
+import 'package:flutter_card_swiper/src/widgets/cool_swiper.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

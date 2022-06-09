@@ -1,16 +1,16 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/constants.dart';
-import 'package:flutter_card_swiper/models/swiper_card.dart';
+import 'package:flutter_card_swiper/src/constants.dart';
+import 'package:flutter_card_swiper/src/models/swiper_card.dart';
 import 'package:flutter_card_swiper/utils.dart';
 
-class SwiperCardItem extends StatefulWidget {
+class CoolSwiperCard extends StatefulWidget {
   final SwiperCard card;
   final Function onAnimationTrigger;
   final Function onVerticalDragEnd;
 
-  const SwiperCardItem({
+  const CoolSwiperCard({
     Key? key,
     required this.card,
     required this.onAnimationTrigger,
@@ -18,10 +18,10 @@ class SwiperCardItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SwiperCardItem> createState() => _CardState();
+  State<CoolSwiperCard> createState() => _CardState();
 }
 
-class _CardState extends State<SwiperCardItem>
+class _CardState extends State<CoolSwiperCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
 

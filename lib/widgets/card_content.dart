@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/constants.dart';
+import 'package:flutter_card_swiper/src/constants.dart';
 
 class CardContent extends StatelessWidget {
   final Color color;
