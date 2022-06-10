@@ -98,18 +98,24 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
 
       animationController.forward().then((value) {
         widget.onVerticalDragEnd();
-        setState(() {
-          dragStartAngle = 0;
-        });
+        // if (mounted)
+        {
+          setState(() {
+            dragStartAngle = 0;
+          });
+        }
       });
     } else {
-      setState(() {
-        // Set a non-zero drag rotation to allow the card to reset to original
-        // position smoothly rather than snapping back into place
-        dragDuration = const Duration(milliseconds: 200);
-        yDragOffset = 0;
-        dragStartAngle = 0;
-      });
+      // if (mounted)
+      {
+        setState(() {
+          // Set a non-zero drag rotation to allow the card to reset to original
+          // position smoothly rather than snapping back into place
+          dragDuration = const Duration(milliseconds: 200);
+          yDragOffset = 0;
+          dragStartAngle = 0;
+        });
+      }
     }
   }
 
