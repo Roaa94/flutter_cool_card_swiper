@@ -14,7 +14,7 @@ There are a few elements in this animation
 
 1. Cards stacked behind each other, the card’s scale & y position depend on their order (index) in the stack.
 2. When the user touches/clicks on the front card and holds, the card rotates a small angle, the center of that angle is relative to the pointer location (top-left/top-right/bottom-left/bottom-right), and the direction of the angle is based on the pointer location side (left => angle is positive, right => angle is negative)
-3. When the user starts dragging, the card moves with the poitner on the y-axis
+3. When the user starts dragging, the card moves with the pointer on the y-axis
 4. When the user releases, if the card travelled an `initAnimationOffset` distance, the main animation is triggerred, which is:
     1. Slide up a `throwSlideYDistance` & start full rotation (the rotation direction also depends on the pointer location like the animation in step 2)
     2. While rotating, slide down into the position of the furthest card in the stack
