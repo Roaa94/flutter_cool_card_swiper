@@ -1,8 +1,4 @@
 class Constants {
-  static const double onTapRotationAngle = 0.01;
-
-  static const double rotationAnimationAngleDeg = 360;
-
   static const double scaleFraction = 0.05;
   static const double yOffset = 13;
 
