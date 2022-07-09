@@ -33,16 +33,19 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: CoolCardSwiper(
-              config: CoolCardSwiperConfig(
-                height: cardHeight,
-                animationStartDistance: 100,
-              ),
-              children: List.generate(
-                colors.length,
-                (index) => CardContent(color: colors[index]),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: CoolCardSwiper(
+                config: CoolCardSwiperConfig(
+                  height: cardHeight,
+                  animationStartDistance: 100,
+                ),
+                children: List.generate(
+                  colors.length,
+                  (index) => CardContent(color: colors[index]),
+                ),
               ),
             ),
           ),
@@ -63,7 +66,6 @@ class CardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: cardHeight,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
         color: color,

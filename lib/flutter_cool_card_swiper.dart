@@ -92,24 +92,27 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ValueListenableBuilder(
-          valueListenable: _backgroundCardsAreInFrontNotifier,
-          builder: (c, bool backgroundCardsAreInFront, _) =>
-              backgroundCardsAreInFront
-                  ? Positioned(child: Container())
-                  : _buildBackgroundCardsStack(),
-        ),
-        _buildFrontCard(),
-        ValueListenableBuilder(
-          valueListenable: _backgroundCardsAreInFrontNotifier,
-          builder: (c, bool backgroundCardsAreInFront, _) =>
-              backgroundCardsAreInFront
-                  ? _buildBackgroundCardsStack()
-                  : Positioned(child: Container()),
-        ),
-      ],
+    return SizedBox(
+      height: widget.config.height,
+      child: Stack(
+        children: [
+          ValueListenableBuilder(
+            valueListenable: _backgroundCardsAreInFrontNotifier,
+            builder: (c, bool backgroundCardsAreInFront, _) =>
+                backgroundCardsAreInFront
+                    ? Positioned(child: Container())
+                    : _buildBackgroundCardsStack(),
+          ),
+          _buildFrontCard(),
+          ValueListenableBuilder(
+            valueListenable: _backgroundCardsAreInFrontNotifier,
+            builder: (c, bool backgroundCardsAreInFront, _) =>
+                backgroundCardsAreInFront
+                    ? _buildBackgroundCardsStack()
+                    : Positioned(child: Container()),
+          ),
+        ],
+      ),
     );
   }
 
@@ -131,6 +134,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
       bottom: 0,
       left: 0,
       right: 0,
+      top: 0,
       child: IgnorePointer(
         ignoring: i != stackChildren.length - 1,
         child: CoolSwiperCardWrapper(
