@@ -10,9 +10,13 @@ class CoolCardSwiperConfig {
     this.isListReversed = true,
     this.minCardScaleFraction = 0.7,
     this.throwDistanceOnDragEnd = 300,
-  }) : assert(
+  })  : assert(
           minCardScaleFraction > 0 && minCardScaleFraction < 1,
           'minCardScaleFraction should be more than 0 and less than 1',
+        ),
+        assert(
+          throwDistanceOnDragEnd >= 200,
+          'throwDistanceOnDragEnd should be larger than 100',
         );
 
   /// The height of the swiper
