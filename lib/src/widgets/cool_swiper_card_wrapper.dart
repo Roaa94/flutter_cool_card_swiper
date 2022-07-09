@@ -34,7 +34,6 @@ class CoolSwiperCardWrapper extends StatefulWidget {
 class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
-  late final Animation<double> yOffsetAnimation;
   late final Animation<double> scaleAnimation;
 
   @override
