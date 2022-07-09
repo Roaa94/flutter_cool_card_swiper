@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
                   height: cardHeight,
                   animationStartDistance: 100,
                   turns: 1,
+                  minCardScaleFraction: 0.8,
                 ),
                 children: List.generate(
                   colors.length,

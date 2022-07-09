@@ -93,8 +93,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
     if ((yDragOffset * -1) > widget.config.animationStartDistance) {
       widget.onAnimationTrigger();
       slideDownAnimationTween.end = Constants.throwSlideYDistance +
-          yDragOffset.abs() -
-          (widget.cardsCount - 1) * 1;
+          yDragOffset.abs();
 
       animationController.forward().then((value) {
         setState(() {
@@ -205,6 +204,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
                   child: Transform.scale(
                     // Scale down to scale of the smallest card in stack
                     scale: scaleAnimation.value,
+                    alignment: const Alignment(0, -2.3),
                     child: child,
                   ),
                 ),

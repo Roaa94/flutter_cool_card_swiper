@@ -43,6 +43,16 @@ class CoolCardSwiperConfig {
   /// will be the foremost card
   final bool isListReversed;
 
+  double getCurrentCardScale(int cardsCount, int index) {
+    return minCardScaleFraction +
+        ((1 - minCardScaleFraction) / cardsCount) * (index + 1);
+  }
+
+  double getPreviousCardScale(int cardsCount, int index) {
+    return minCardScaleFraction +
+        ((1 - minCardScaleFraction) / cardsCount) * index;
+  }
+
   Alignment getDragStartPositionAlignment(
     double xPosition,
     double yPosition,

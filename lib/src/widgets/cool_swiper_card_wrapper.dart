@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../cool_card_swiper_config.dart';
+
+const cardTop = 10;
+
 /// This widget is responsible for scaling up & sliding down
 /// the background cards of the the card being dragged to give the
 /// illusion that they replaced it
@@ -12,7 +16,7 @@ class CoolSwiperCardWrapper extends StatefulWidget {
   final AnimationController animationController;
   final int index;
   final int cardsCount;
-  final double minCardScaleFraction;
+  final CoolCardSwiperConfig config;
 
   const CoolSwiperCardWrapper({
     Key? key,
@@ -20,7 +24,7 @@ class CoolSwiperCardWrapper extends StatefulWidget {
     required this.animationController,
     required this.index,
     required this.cardsCount,
-    required this.minCardScaleFraction,
+    required this.config,
   }) : super(key: key);
 
   @override
@@ -37,12 +41,15 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
   void initState() {
     super.initState();
 
-    double previousCardScale = widget.minCardScaleFraction +
-        ((1 - widget.minCardScaleFraction) / widget.cardsCount) *
-            (widget.index);
-    double currentCardScale = widget.minCardScaleFraction +
-        ((1 - widget.minCardScaleFraction) / widget.cardsCount) *
-            (widget.index + 1);
+    double previousCardScale = widget.config.getPreviousCardScale(
+      widget.cardsCount,
+      widget.index,
+    );
+
+    double currentCardScale = widget.config.getCurrentCardScale(
+      widget.cardsCount,
+      widget.index,
+    );
 
     animationController = widget.animationController;
 

@@ -129,7 +129,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
         ignoring: i != stackChildren.length - 1,
         child: CoolSwiperCardWrapper(
           animationController: backgroundCardsAnimationController,
-          minCardScaleFraction: widget.config.minCardScaleFraction,
+          config: widget.config,
           index: i,
           cardsCount: stackChildren.length,
           child: stackChildren[i],
