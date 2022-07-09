@@ -70,7 +70,6 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
   @override
   void initState() {
     super.initState();
-    // _cards = SwiperCard.listFromWidgets(widget.children);
     stackChildren = _stackChildren;
 
     backgroundCardsAnimationController = AnimationController(
