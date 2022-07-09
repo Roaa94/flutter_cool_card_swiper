@@ -9,14 +9,18 @@ import 'package:flutter/material.dart';
 /// when it knows that the rotation main animation has been triggerred
 class CoolSwiperCardWrapper extends StatefulWidget {
   final Widget child;
-  final double initialScale;
   final AnimationController animationController;
+  final int index;
+  final int cardsCount;
+  final double minCardScaleFraction;
 
   const CoolSwiperCardWrapper({
     Key? key,
     required this.child,
-    this.initialScale = 1,
     required this.animationController,
+    required this.index,
+    required this.cardsCount,
+    required this.minCardScaleFraction,
   }) : super(key: key);
 
   @override
@@ -32,11 +36,19 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
   @override
   void initState() {
     super.initState();
+
+    double previousCardScale = widget.minCardScaleFraction +
+        ((1 - widget.minCardScaleFraction) / widget.cardsCount) *
+            (widget.index);
+    double currentCardScale = widget.minCardScaleFraction +
+        ((1 - widget.minCardScaleFraction) / widget.cardsCount) *
+            (widget.index + 1);
+
     animationController = widget.animationController;
 
     scaleAnimation = Tween<double>(
-      begin: widget.initialScale,
-      end: widget.initialScale + 0.05,
+      begin: currentCardScale,
+      end: currentCardScale + currentCardScale - previousCardScale,
     ).animate(
       CurvedAnimation(
         parent: animationController,

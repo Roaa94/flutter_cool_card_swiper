@@ -94,7 +94,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
       widget.onAnimationTrigger();
       slideDownAnimationTween.end = Constants.throwSlideYDistance +
           yDragOffset.abs() -
-          (widget.cardsCount - 1) * Constants.yOffset;
+          (widget.cardsCount - 1) * 1;
 
       animationController.forward().then((value) {
         setState(() {
@@ -134,7 +134,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
 
     scaleAnimation = Tween<double>(
       begin: 1,
-      end: 1 - ((widget.cardsCount - 1) * widget.config.scaleDownFraction),
+      end: 1,
     ).animate(animationController);
 
     // Staggered animation is used here to allow

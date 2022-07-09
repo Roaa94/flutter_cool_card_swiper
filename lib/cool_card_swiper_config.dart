@@ -7,9 +7,12 @@ class CoolCardSwiperConfig {
     this.animationStartDistance = 100,
     this.turns = 1,
     this.onTapRotationAngle = 4,
-    this.scaleDownFraction = 0.05,
     this.isListReversed = true,
-  });
+    this.minCardScaleFraction = 0.7,
+  }) : assert(
+          minCardScaleFraction > 0 && minCardScaleFraction < 1,
+          'minCardScaleFraction should be more than 0 and less than 1',
+        );
 
   /// The height of the swiper
   final double height;
@@ -30,8 +33,9 @@ class CoolCardSwiperConfig {
   /// when the user first taps/click on it
   final double onTapRotationAngle;
 
-  /// The scale of each card relative
-  final double scaleDownFraction;
+  /// The scale fraction of the smallest card
+  /// relative to the largest card (should be > 0 & < 1)
+  final double minCardScaleFraction;
 
   /// If set to true, the last item in the list of
   /// children will be the foremost card
