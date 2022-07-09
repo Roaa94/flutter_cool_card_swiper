@@ -97,7 +97,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
                     ? Positioned(child: Container())
                     : _buildBackgroundCardsStack(),
           ),
-          _buildFrontCard(),
+          _buildStackChild(widget.children.length - 1),
           ValueListenableBuilder(
             valueListenable: _backgroundCardsAreInFrontNotifier,
             builder: (c, bool backgroundCardsAreInFront, _) =>
@@ -117,10 +117,6 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
         (i) => _buildStackChild(i),
       ),
     );
-  }
-
-  Widget _buildFrontCard() {
-    return _buildStackChild(widget.children.length - 1);
   }
 
   Widget _buildStackChild(int i) {
