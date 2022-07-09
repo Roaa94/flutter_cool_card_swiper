@@ -136,7 +136,6 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
         child: CoolSwiperCardWrapper(
           animationController: backgroundCardsAnimationController,
           initialScale: _cards[i].scale,
-          initialYOffset: _cards[i].yOffset,
           child: stackChildren[i],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../constants.dart';
 
 /// This widget is responsible for scaling up & sliding down
@@ -11,14 +12,12 @@ import '../constants.dart';
 class CoolSwiperCardWrapper extends StatefulWidget {
   final Widget child;
   final double initialScale;
-  final double initialYOffset;
   final AnimationController animationController;
 
   const CoolSwiperCardWrapper({
     Key? key,
     required this.child,
     this.initialScale = 1,
-    this.initialYOffset = 0,
     required this.animationController,
   }) : super(key: key);
 
@@ -37,16 +36,6 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
     super.initState();
     animationController = widget.animationController;
 
-    yOffsetAnimation = Tween<double>(
-      begin: widget.initialYOffset,
-      end: widget.initialYOffset - Constants.yOffset,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeOutBack,
-      ),
-    );
-
     scaleAnimation = Tween<double>(
       begin: widget.initialScale,
       end: widget.initialScale + Constants.scaleFraction,
@@ -62,12 +51,10 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animationController,
-      builder: (c, child) => Transform.translate(
-        offset: Offset(0, -yOffsetAnimation.value),
-        child: Transform.scale(
-          scale: scaleAnimation.value,
-          child: child,
-        ),
+      builder: (c, child) => Transform.scale(
+        alignment: const Alignment(0, -2.3),
+        scale: scaleAnimation.value,
+        child: child,
       ),
       child: widget.child,
     );
