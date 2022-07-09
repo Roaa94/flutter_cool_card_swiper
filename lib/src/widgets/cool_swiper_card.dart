@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../cool_card_swiper_config.dart';
-import '../constants.dart';
 
 /// This is the widget responsible for user drag & release animations
 ///
@@ -14,7 +13,7 @@ class CoolSwiperCard extends StatefulWidget {
     required this.child,
     required this.cardsCount,
     required this.onAnimationTrigger,
-    this.config = const CoolCardSwiperConfig(),
+    required this.config,
   }) : super(key: key);
 
   final Widget child;
@@ -125,7 +124,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: Constants.swipeAnimationDuration,
+      duration: widget.config.swipeAnimationDuration,
     );
 
     rotationAnimation = rotationAnimationTween.animate(CurvedAnimation(

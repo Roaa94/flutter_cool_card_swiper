@@ -55,6 +55,18 @@ class CoolCardSwiperConfig {
   Alignment get cardsScaleOriginAlignment =>
       Alignment(0, 2.3 * direction.multiplier);
 
+  /// Animation duration for animating the background cards
+  /// of the card being swiped (the animation of the background cards
+  /// scaling up to replace the card being swiped)
+  final Duration backgroundCardsAnimationDuration =
+      const Duration(milliseconds: 300);
+
+  /// Animation duration for the rotate & swap animation of the
+  /// card being dragged
+  /// i.e. the duration between releasing the card and the card
+  /// reaching its final place
+  final Duration swipeAnimationDuration = const Duration(milliseconds: 500);
+
   double getCurrentCardScale(int cardsCount, int index) {
     return minCardScaleFraction +
         ((1 - minCardScaleFraction) / cardsCount) * (index + 1);

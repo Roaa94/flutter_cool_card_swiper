@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'cool_card_swiper_config.dart';
-import 'src/constants.dart';
 import 'src/widgets/cool_swiper_card.dart';
 import 'src/widgets/cool_swiper_card_wrapper.dart';
 
@@ -44,12 +43,12 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
 
   void _onAnimationTrigger() async {
     backgroundCardsAnimationController.forward();
-    Future.delayed(Constants.backgroundCardsAnimationDuration).then(
+    Future.delayed(widget.config.backgroundCardsAnimationDuration).then(
       (_) {
         _backgroundCardsAreInFrontNotifier.value = true;
       },
     );
-    Future.delayed(Constants.swipeAnimationDuration).then(
+    Future.delayed(widget.config.swipeAnimationDuration).then(
       (_) {
         _backgroundCardsAreInFrontNotifier.value = false;
         backgroundCardsAnimationController.reset();
@@ -74,7 +73,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
 
     backgroundCardsAnimationController = AnimationController(
       vsync: this,
-      duration: Constants.backgroundCardsAnimationDuration,
+      duration: widget.config.backgroundCardsAnimationDuration,
     );
   }
 
