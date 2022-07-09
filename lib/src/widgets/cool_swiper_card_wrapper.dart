@@ -12,7 +12,6 @@ class CoolSwiperCardWrapper extends StatefulWidget {
   final Widget child;
   final double initialScale;
   final double initialYOffset;
-  final bool fire;
   final AnimationController animationController;
 
   const CoolSwiperCardWrapper({
@@ -20,7 +19,6 @@ class CoolSwiperCardWrapper extends StatefulWidget {
     required this.child,
     this.initialScale = 1,
     this.initialYOffset = 0,
-    this.fire = false,
     required this.animationController,
   }) : super(key: key);
 
