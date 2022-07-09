@@ -1,5 +1,5 @@
 class Constants {
-  static const double dragStartEndAngle = 0.01;
+  static const double onTapRotationAngle = 0.01;
 
   static const double rotationAnimationAngleDeg = 360;
 

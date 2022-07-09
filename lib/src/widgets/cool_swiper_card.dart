@@ -41,7 +41,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   Tween<double> slideDownAnimationTween = Tween<double>(begin: 0, end: 0);
 
   double yDragOffset = 0;
-  double dragStartAngle = 0;
+  double onTapRotationTurns = 0;
   Alignment dragStartRotationAlignment = Alignment.centerRight;
   Duration dragDuration = const Duration(milliseconds: 0);
 
@@ -66,7 +66,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
         yPosition,
         screenWidth,
       );
-      dragStartAngle = Constants.dragStartEndAngle * angleMultiplier;
+      onTapRotationTurns = (widget.config.onTapRotationAngle / 360) * angleMultiplier;
       // If the drag duration is larger than zero, rest to zero
       // to allow the card to move with user finger/mouse smoothly
       if (dragDuration > Duration.zero) {
@@ -96,7 +96,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
 
       animationController.forward().then((value) {
         setState(() {
-          dragStartAngle = 0;
+          onTapRotationTurns = 0;
         });
       });
     } else {
@@ -105,7 +105,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
         // position smoothly rather than snapping back into place
         dragDuration = const Duration(milliseconds: 200);
         yDragOffset = 0;
-        dragStartAngle = 0;
+        onTapRotationTurns = 0;
       });
     }
   }
@@ -180,7 +180,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
           // triggered on user touch/click & hold
           // Or the DRAG START ANIMATION
           child: AnimatedRotation(
-            turns: dragStartAngle,
+            turns: onTapRotationTurns,
             alignment: dragStartRotationAlignment,
             duration: const Duration(milliseconds: 200),
             child: widget.card.child,

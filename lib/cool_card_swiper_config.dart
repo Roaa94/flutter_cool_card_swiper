@@ -6,6 +6,7 @@ class CoolCardSwiperConfig {
     this.direction = SwipeDirection.upwards,
     this.animationStartDistance = 100,
     this.turns = 1,
+    this.onTapRotationAngle = 4,
   });
 
   /// The height of the swiper
@@ -22,6 +23,10 @@ class CoolCardSwiperConfig {
   /// The number of complete turns the cards will perform
   /// when flying up and sliding down to the back of the stack
   final int turns;
+
+  /// The angle, in degrees, in which the card will slightly rotate
+  /// when the user first taps/click on it
+  final double onTapRotationAngle;
 
   Alignment getDragStartPositionAlignment(
     double xPosition,
