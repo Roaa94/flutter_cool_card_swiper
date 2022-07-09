@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../../cool_card_swiper_config.dart';
+import '../constants.dart';
 import '../swiper_card.dart';
 
 /// This is the widget responsible for user drag & release animations
@@ -57,8 +57,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
     final xPosition = details.globalPosition.dx;
     final yPosition = details.localPosition.dy;
     final angleMultiplier = xPosition > screenWidth / 2 ? -1 : 1;
-    rotationAnimationTween.end =
-        Constants.rotationAnimationAngleDeg * angleMultiplier;
+    rotationAnimationTween.end = widget.config.turns * 360.0 * angleMultiplier;
 
     // Update values of the small angle drag start rotation animation
     setState(() {

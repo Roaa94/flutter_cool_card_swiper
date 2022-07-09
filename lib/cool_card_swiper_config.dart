@@ -5,6 +5,7 @@ class CoolCardSwiperConfig {
     this.height = 220,
     this.direction = SwipeDirection.upwards,
     this.animationStartDistance = 100,
+    this.turns = 1,
   });
 
   /// The height of the swiper
@@ -17,6 +18,10 @@ class CoolCardSwiperConfig {
   /// The distance after which releasing the card will animate it and swipe it
   /// If the user releases before this distance, the card will snap back into place
   final double animationStartDistance;
+
+  /// The number of complete turns the cards will perform
+  /// when flying up and sliding down to the back of the stack
+  final int turns;
 
   Alignment getDragStartPositionAlignment(
     double xPosition,

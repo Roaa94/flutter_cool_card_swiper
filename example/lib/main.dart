@@ -38,9 +38,10 @@ class MyApp extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: CoolCardSwiper(
-                config: CoolCardSwiperConfig(
+                config: const CoolCardSwiperConfig(
                   height: cardHeight,
                   animationStartDistance: 100,
+                  turns: 1,
                 ),
                 children: List.generate(
                   colors.length,
