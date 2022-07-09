@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/src/constants.dart';
-import 'package:flutter_card_swiper/src/models/swiper_card.dart';
+import 'package:flutter_card_swiper/src/utils/swiper_card.dart';
 import 'package:flutter_card_swiper/src/widgets/cool_swiper_card.dart';
 import 'package:flutter_card_swiper/src/widgets/cool_swiper_card_wrapper.dart';
 
