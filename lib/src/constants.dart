@@ -1,5 +1,4 @@
 class Constants {
-  static const double scaleFraction = 0.05;
   static const double yOffset = 13;
 
   static const double throwSlideYDistance = 200;

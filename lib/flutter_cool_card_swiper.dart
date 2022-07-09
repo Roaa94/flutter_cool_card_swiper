@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'src/constants.dart';
 import 'cool_card_swiper_config.dart';
-import 'src/swiper_card.dart';
+import 'src/constants.dart';
 import 'src/widgets/cool_swiper_card.dart';
 import 'src/widgets/cool_swiper_card_wrapper.dart';
 
@@ -28,16 +27,17 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
   final ValueNotifier<bool> _backgroundCardsAreInFrontNotifier =
       ValueNotifier<bool>(false);
 
-  late final List<SwiperCard> _cards;
-
   List<Widget> get _stackChildren => List.generate(
-        _cards.length,
+        widget.children.length,
         (i) {
           return CoolSwiperCard(
             key: ValueKey('__animated_card_${i}__'),
-            card: _cards[i],
+            cardsCount: widget.children.length,
             config: widget.config,
             onAnimationTrigger: _onAnimationTrigger,
+            child: widget.config.isListReversed
+                ? widget.children.reversed.toList()[i]
+                : widget.children[i],
           );
         },
       );
@@ -70,7 +70,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
   @override
   void initState() {
     super.initState();
-    _cards = SwiperCard.listFromWidgets(widget.children);
+    // _cards = SwiperCard.listFromWidgets(widget.children);
     stackChildren = _stackChildren;
 
     backgroundCardsAnimationController = AnimationController(
@@ -114,14 +114,14 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
   Widget _buildBackgroundCardsStack() {
     return Stack(
       children: List.generate(
-        _cards.length - 1,
+        widget.children.length - 1,
         (i) => _buildStackChild(i),
       ),
     );
   }
 
   Widget _buildFrontCard() {
-    return _buildStackChild(_cards.length - 1);
+    return _buildStackChild(widget.children.length - 1);
   }
 
   Widget _buildStackChild(int i) {
@@ -134,7 +134,9 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
         ignoring: i != stackChildren.length - 1,
         child: CoolSwiperCardWrapper(
           animationController: backgroundCardsAnimationController,
-          initialScale: _cards[i].scale,
+          initialScale: 1 -
+              ((stackChildren.length - 1 - i) *
+                  widget.config.scaleDownFraction),
           child: stackChildren[i],
         ),
       ),

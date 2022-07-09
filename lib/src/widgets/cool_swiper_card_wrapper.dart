@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-
 /// This widget is responsible for scaling up & sliding down
 /// the background cards of the the card being dragged to give the
 /// illusion that they replaced it
@@ -38,7 +36,7 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
 
     scaleAnimation = Tween<double>(
       begin: widget.initialScale,
-      end: widget.initialScale + Constants.scaleFraction,
+      end: widget.initialScale + 0.05,
     ).animate(
       CurvedAnimation(
         parent: animationController,

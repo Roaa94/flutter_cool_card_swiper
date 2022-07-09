@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../cool_card_swiper_config.dart';
 import '../constants.dart';
-import '../swiper_card.dart';
 
 /// This is the widget responsible for user drag & release animations
 ///
@@ -12,12 +11,14 @@ import '../swiper_card.dart';
 class CoolSwiperCard extends StatefulWidget {
   const CoolSwiperCard({
     Key? key,
-    required this.card,
+    required this.child,
+    required this.cardsCount,
     required this.onAnimationTrigger,
     this.config = const CoolCardSwiperConfig(),
   }) : super(key: key);
 
-  final SwiperCard card;
+  final Widget child;
+  final int cardsCount;
 
   /// Callback to trigger animation logic in the parent stack
   final Function onAnimationTrigger;
@@ -66,7 +67,8 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
         yPosition,
         screenWidth,
       );
-      onTapRotationTurns = (widget.config.onTapRotationAngle / 360) * angleMultiplier;
+      onTapRotationTurns =
+          (widget.config.onTapRotationAngle / 360) * angleMultiplier;
       // If the drag duration is larger than zero, rest to zero
       // to allow the card to move with user finger/mouse smoothly
       if (dragDuration > Duration.zero) {
@@ -92,7 +94,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
       widget.onAnimationTrigger();
       slideDownAnimationTween.end = Constants.throwSlideYDistance +
           yDragOffset.abs() -
-          (widget.card.totalCount - 1) * Constants.yOffset;
+          (widget.cardsCount - 1) * Constants.yOffset;
 
       animationController.forward().then((value) {
         setState(() {
@@ -132,7 +134,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
 
     scaleAnimation = Tween<double>(
       begin: 1,
-      end: 1 - ((widget.card.totalCount - 1) * Constants.scaleFraction),
+      end: 1 - ((widget.cardsCount - 1) * widget.config.scaleDownFraction),
     ).animate(animationController);
 
     // Staggered animation is used here to allow
@@ -183,7 +185,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
             turns: onTapRotationTurns,
             alignment: dragStartRotationAlignment,
             duration: const Duration(milliseconds: 200),
-            child: widget.card.child,
+            child: widget.child,
           ),
           builder: (c, child) {
             // This widgets inside the builder method of the AnimatedBuilder

@@ -7,6 +7,8 @@ class CoolCardSwiperConfig {
     this.animationStartDistance = 100,
     this.turns = 1,
     this.onTapRotationAngle = 4,
+    this.scaleDownFraction = 0.05,
+    this.isListReversed = true,
   });
 
   /// The height of the swiper
@@ -27,6 +29,15 @@ class CoolCardSwiperConfig {
   /// The angle, in degrees, in which the card will slightly rotate
   /// when the user first taps/click on it
   final double onTapRotationAngle;
+
+  /// The scale of each card relative
+  final double scaleDownFraction;
+
+  /// If set to true, the last item in the list of
+  /// children will be the foremost card
+  /// If false, the first item in the list of children
+  /// will be the foremost card
+  final bool isListReversed;
 
   Alignment getDragStartPositionAlignment(
     double xPosition,
