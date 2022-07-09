@@ -9,6 +9,7 @@ class CoolCardSwiperConfig {
     this.onTapRotationAngle = 4,
     this.isListReversed = true,
     this.minCardScaleFraction = 0.7,
+    this.throwDistanceOnDragEnd = 300,
   }) : assert(
           minCardScaleFraction > 0 && minCardScaleFraction < 1,
           'minCardScaleFraction should be more than 0 and less than 1',
@@ -42,6 +43,10 @@ class CoolCardSwiperConfig {
   /// If false, the first item in the list of children
   /// will be the foremost card
   final bool isListReversed;
+
+  /// The distance in which the card is thrown further from
+  /// the drag end location before it is returned back down
+  final double throwDistanceOnDragEnd;
 
   double getCurrentCardScale(int cardsCount, int index) {
     return minCardScaleFraction +

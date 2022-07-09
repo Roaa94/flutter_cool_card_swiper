@@ -92,8 +92,8 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   void _onVerticalDragEnd(DragEndDetails details) {
     if ((yDragOffset * -1) > widget.config.animationStartDistance) {
       widget.onAnimationTrigger();
-      slideDownAnimationTween.end = Constants.throwSlideYDistance +
-          yDragOffset.abs();
+      slideDownAnimationTween.end =
+          widget.config.throwDistanceOnDragEnd + yDragOffset.abs();
 
       animationController.forward().then((value) {
         setState(() {
@@ -140,7 +140,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
     // sequencing the slide up & slide down animations
     slideUpAnimation = Tween<double>(
       begin: 0,
-      end: -Constants.throwSlideYDistance,
+      end: -widget.config.throwDistanceOnDragEnd,
     ).animate(CurvedAnimation(
       parent: animationController,
       curve: const Interval(0, 0.5, curve: Curves.linear),
