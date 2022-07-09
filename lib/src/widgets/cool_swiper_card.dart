@@ -1,9 +1,10 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/src/constants.dart';
-import 'package:flutter_card_swiper/src/utils/swiper_card.dart';
-import 'package:flutter_card_swiper/src/utils/utils.dart';
+
+import '../constants.dart';
+import '../swiper_card.dart';
+import '../utils.dart';
 
 /// This is the widget responsible for user drag & release animations
 ///

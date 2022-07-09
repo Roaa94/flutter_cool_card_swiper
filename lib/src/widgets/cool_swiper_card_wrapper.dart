@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/src/constants.dart';
+import '../constants.dart';
 
 /// This widget is responsible for scaling up & sliding down
 /// the background cards of the the card being dragged to give the
