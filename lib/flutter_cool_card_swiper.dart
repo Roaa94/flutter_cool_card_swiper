@@ -1,8 +1,13 @@
+library flutter_cool_card_swiper;
+
 import 'package:flutter/material.dart';
 
-import 'cool_card_swiper_config.dart';
+import 'src/cool_card_swiper_config.dart';
 import 'src/widgets/cool_swiper_card.dart';
 import 'src/widgets/cool_swiper_card_wrapper.dart';
+
+export 'src/cool_card_swiper_config.dart';
+export 'src/swipe_direction.dart';
 
 class CoolCardSwiper extends StatefulWidget {
   final List<Widget> children;

@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../cool_card_swiper_config.dart';
+import '../cool_card_swiper_config.dart';
 
 /// This is the widget responsible for user drag & release animations
 ///

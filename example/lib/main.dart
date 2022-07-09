@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cool_card_swiper/cool_card_swiper_config.dart';
 import 'package:flutter_cool_card_swiper/flutter_cool_card_swiper.dart';
 
 void main() {

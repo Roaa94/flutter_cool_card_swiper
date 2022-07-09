@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'swipe_direction.dart';
+
 class CoolCardSwiperConfig {
   const CoolCardSwiperConfig({
     this.height = 220,
@@ -88,29 +90,6 @@ class CoolCardSwiperConfig {
           : Alignment.topRight;
     } else {
       return yPosition > height / 2 ? Alignment.bottomLeft : Alignment.topLeft;
-    }
-  }
-}
-
-enum SwipeDirection {
-  upwards,
-  downwards;
-
-  double get multiplier {
-    switch (this) {
-      case SwipeDirection.downwards:
-        return 1;
-      case SwipeDirection.upwards:
-        return -1;
-    }
-  }
-
-  double get multiplierReversed {
-    switch (this) {
-      case SwipeDirection.downwards:
-        return -1;
-      case SwipeDirection.upwards:
-        return 1;
     }
   }
 }

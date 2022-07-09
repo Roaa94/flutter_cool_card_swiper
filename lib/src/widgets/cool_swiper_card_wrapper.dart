@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../cool_card_swiper_config.dart';
+import '../cool_card_swiper_config.dart';
 
 /// This widget is responsible for scaling up & sliding down
 /// the background cards of the the card being dragged to give the
