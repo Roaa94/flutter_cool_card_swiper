@@ -14,13 +14,14 @@ class CoolSwiperCard extends StatefulWidget {
     Key? key,
     required this.card,
     required this.onAnimationTrigger,
-    required this.onVerticalDragEnd,
     this.config = const CoolCardSwiperConfig(),
   }) : super(key: key);
 
   final SwiperCard card;
+
+  /// Callback to trigger animation logic in the parent stack
   final Function onAnimationTrigger;
-  final Function onVerticalDragEnd;
+
   final CoolCardSwiperConfig config;
 
   @override
@@ -95,7 +96,6 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
           (widget.card.totalCount - 1) * Constants.yOffset;
 
       animationController.forward().then((value) {
-        widget.onVerticalDragEnd();
         setState(() {
           dragStartAngle = 0;
         });

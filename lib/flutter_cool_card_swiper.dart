@@ -27,7 +27,6 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
   late final List<Widget> stackChildren;
   final ValueNotifier<bool> _backgroundCardsAreInFrontNotifier =
       ValueNotifier<bool>(false);
-  bool fireBackgroundCardsAnimation = false;
 
   late final List<SwiperCard> _cards;
 
@@ -39,15 +38,11 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
             card: _cards[i],
             config: widget.config,
             onAnimationTrigger: _onAnimationTrigger,
-            onVerticalDragEnd: () {},
           );
         },
       );
 
   void _onAnimationTrigger() async {
-    setState(() {
-      fireBackgroundCardsAnimation = true;
-    });
     backgroundCardsAnimationController.forward();
     Future.delayed(Constants.backgroundCardsAnimationDuration).then(
       (_) {
