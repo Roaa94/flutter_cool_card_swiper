@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cool_card_swiper/cool_card_swiper_config.dart';
 import 'package:flutter_cool_card_swiper/flutter_cool_card_swiper.dart';
 
 void main() {
@@ -35,9 +36,13 @@ class MyApp extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: CoolCardSwiper(
+              config: CoolCardSwiperConfig(
+                height: cardHeight,
+                animationStartDistance: 100,
+              ),
               children: List.generate(
                 colors.length,
-                    (index) => CardContent(color: colors[index]),
+                (index) => CardContent(color: colors[index]),
               ),
             ),
           ),
@@ -46,7 +51,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class CardContent extends StatelessWidget {
   final Color color;

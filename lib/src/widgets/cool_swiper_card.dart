@@ -3,27 +3,25 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../../cool_card_swiper_config.dart';
 import '../swiper_card.dart';
-import '../utils.dart';
 
 /// This is the widget responsible for user drag & release animations
 ///
 /// It also sends drag information to root stack widget
 class CoolSwiperCard extends StatefulWidget {
-  final SwiperCard card;
-  final Function onAnimationTrigger;
-  final Function onVerticalDragEnd;
-  final double height;
-  final double initAnimationOffset;
-
   const CoolSwiperCard({
     Key? key,
     required this.card,
     required this.onAnimationTrigger,
     required this.onVerticalDragEnd,
-    required this.height,
-    required this.initAnimationOffset,
+    this.config = const CoolCardSwiperConfig(),
   }) : super(key: key);
+
+  final SwiperCard card;
+  final Function onAnimationTrigger;
+  final Function onVerticalDragEnd;
+  final CoolCardSwiperConfig config;
 
   @override
   State<CoolSwiperCard> createState() => _CoolSwiperCardState();
@@ -63,11 +61,10 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
 
     // Update values of the small angle drag start rotation animation
     setState(() {
-      dragStartRotationAlignment = getDragStartPositionAlignment(
+      dragStartRotationAlignment = widget.config.getDragStartPositionAlignment(
         xPosition,
         yPosition,
         screenWidth,
-        widget.height,
       );
       dragStartAngle = Constants.dragStartEndAngle * angleMultiplier;
       // If the drag duration is larger than zero, rest to zero
@@ -91,7 +88,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   /// called to let it know that it can swap the background cards and brings
   /// them forward to reset the indices and allow for the next card to be dragged & animated
   void _onVerticalDragEnd(DragEndDetails details) {
-    if ((yDragOffset * -1) > widget.initAnimationOffset) {
+    if ((yDragOffset * -1) > widget.config.animationStartDistance) {
       widget.onAnimationTrigger();
       slideDownAnimationTween.end = Constants.throwSlideYDistance +
           yDragOffset.abs() -

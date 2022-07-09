@@ -1,5 +1,5 @@
 class Constants {
-  static const double initAnimationOffset = 100;
+  static const double animationStartDistance = 100;
   static const double cardHeight = 220;
 
   static const double dragStartEndAngle = 0.01;

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'src/constants.dart';
+import 'cool_card_swiper_config.dart';
 import 'src/swiper_card.dart';
 import 'src/widgets/cool_swiper_card.dart';
 import 'src/widgets/cool_swiper_card_wrapper.dart';
 
 class CoolCardSwiper extends StatefulWidget {
   final List<Widget> children;
-  final double initAnimationOffset;
-  final double cardHeight;
+  final CoolCardSwiperConfig config;
 
   const CoolCardSwiper({
     Key? key,
     required this.children,
-    this.initAnimationOffset = Constants.initAnimationOffset,
-    this.cardHeight = Constants.cardHeight,
+    this.config = const CoolCardSwiperConfig(),
   }) : super(key: key);
 
   @override
@@ -38,8 +37,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
           return CoolSwiperCard(
             key: ValueKey('__animated_card_${i}__'),
             card: _cards[i],
-            height: widget.cardHeight,
-            initAnimationOffset: widget.initAnimationOffset,
+            config: widget.config,
             onAnimationTrigger: _onAnimationTrigger,
             onVerticalDragEnd: () {},
           );
