@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool_card_swiper/src/constants.dart';
 
 class CoolCardSwiperConfig {
   const CoolCardSwiperConfig({
-    this.height = Constants.cardHeight,
+    this.height = 220,
     this.direction = SwipeDirection.upwards,
-    this.animationStartDistance = Constants.animationStartDistance,
+    this.animationStartDistance = 100,
   });
 
   /// The height of the swiper

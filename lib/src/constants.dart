@@ -1,7 +1,4 @@
 class Constants {
-  static const double animationStartDistance = 100;
-  static const double cardHeight = 220;
-
   static const double dragStartEndAngle = 0.01;
 
   static const double rotationAnimationAngleDeg = 360;
@@ -11,6 +8,7 @@ class Constants {
 
   static const double throwSlideYDistance = 200;
 
-  static const Duration backgroundCardsAnimationDuration = Duration(milliseconds: 300);
+  static const Duration backgroundCardsAnimationDuration =
+      Duration(milliseconds: 300);
   static const Duration swipeAnimationDuration = Duration(milliseconds: 500);
 }
