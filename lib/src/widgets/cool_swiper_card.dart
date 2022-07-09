@@ -134,7 +134,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
 
     scaleAnimation = Tween<double>(
       begin: 1,
-      end: 1,
+      end: widget.config.minCardScaleFraction,
     ).animate(animationController);
 
     // Staggered animation is used here to allow
