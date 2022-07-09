@@ -34,12 +34,12 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   late final AnimationController animationController;
 
   late final Animation<double> rotationAnimation;
-  late final Animation<double> slideUpAnimation;
-  late final Animation<double> slideDownAnimation;
+  late final Animation<double> slideFurtherAnimation;
+  late final Animation<double> slideBackAnimation;
   late final Animation<double> scaleAnimation;
 
   Tween<double> rotationAnimationTween = Tween<double>(begin: 0, end: -360);
-  Tween<double> slideDownAnimationTween = Tween<double>(begin: 0, end: 0);
+  Tween<double> slideBackAnimationTween = Tween<double>(begin: 0, end: 0);
 
   double yDragOffset = 0;
   double onTapRotationTurns = 0;
@@ -90,10 +90,12 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   /// called to let it know that it can swap the background cards and brings
   /// them forward to reset the indices and allow for the next card to be dragged & animated
   void _onVerticalDragEnd(DragEndDetails details) {
-    if ((yDragOffset * -1) > widget.config.animationStartDistance) {
+    if ((yDragOffset * widget.config.direction.multiplier) >
+        widget.config.animationStartDistance) {
       widget.onAnimationTrigger();
-      slideDownAnimationTween.end =
-          widget.config.throwDistanceOnDragEnd + yDragOffset.abs();
+      slideBackAnimationTween.end =
+          (widget.config.throwDistanceOnDragEnd + yDragOffset.abs()) *
+              widget.config.direction.multiplierReversed;
 
       animationController.forward().then((value) {
         setState(() {
@@ -137,16 +139,17 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
     ).animate(animationController);
 
     // Staggered animation is used here to allow
-    // sequencing the slide up & slide down animations
-    slideUpAnimation = Tween<double>(
+    // sequencing the slide further & slide back animations
+    slideFurtherAnimation = Tween<double>(
       begin: 0,
-      end: -widget.config.throwDistanceOnDragEnd,
+      end: widget.config.throwDistanceOnDragEnd *
+          widget.config.direction.multiplier,
     ).animate(CurvedAnimation(
       parent: animationController,
       curve: const Interval(0, 0.5, curve: Curves.linear),
     ));
 
-    slideDownAnimation = slideDownAnimationTween.animate(CurvedAnimation(
+    slideBackAnimation = slideBackAnimationTween.animate(CurvedAnimation(
       parent: animationController,
       curve: const Interval(0.5, 1, curve: Curves.linear),
     ));
@@ -193,10 +196,10 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
             // Or the DRAG END ANIMATION
             return Transform.translate(
               // slide up some distance beyond drag location
-              offset: Offset(0, slideUpAnimation.value),
+              offset: Offset(0, slideFurtherAnimation.value),
               child: Transform.translate(
                 // slide down into place
-                offset: Offset(0, slideDownAnimation.value),
+                offset: Offset(0, slideBackAnimation.value),
                 child: Transform.rotate(
                   // rotate
                   angle: rotationAnimation.value * (math.pi / 180),
@@ -204,7 +207,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
                   child: Transform.scale(
                     // Scale down to scale of the smallest card in stack
                     scale: scaleAnimation.value,
-                    alignment: const Alignment(0, -2.3),
+                    alignment: widget.config.cardsScaleOriginAlignment,
                     child: child,
                   ),
                 ),

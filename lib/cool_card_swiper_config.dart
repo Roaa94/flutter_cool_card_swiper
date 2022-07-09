@@ -52,6 +52,9 @@ class CoolCardSwiperConfig {
   /// the drag end location before it is returned back down
   final double throwDistanceOnDragEnd;
 
+  Alignment get cardsScaleOriginAlignment =>
+      Alignment(0, 2.3 * direction.multiplier);
+
   double getCurrentCardScale(int cardsCount, int index) {
     return minCardScaleFraction +
         ((1 - minCardScaleFraction) / cardsCount) * (index + 1);
@@ -79,5 +82,23 @@ class CoolCardSwiperConfig {
 
 enum SwipeDirection {
   upwards,
-  downwards,
+  downwards;
+
+  double get multiplier {
+    switch (this) {
+      case SwipeDirection.downwards:
+        return 1;
+      case SwipeDirection.upwards:
+        return -1;
+    }
+  }
+
+  double get multiplierReversed {
+    switch (this) {
+      case SwipeDirection.downwards:
+        return -1;
+      case SwipeDirection.upwards:
+        return 1;
+    }
+  }
 }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../cool_card_swiper_config.dart';
 
-const cardTop = 10;
-
 /// This widget is responsible for scaling up & sliding down
 /// the background cards of the the card being dragged to give the
 /// illusion that they replaced it
@@ -68,7 +66,7 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
     return AnimatedBuilder(
       animation: animationController,
       builder: (c, child) => Transform.scale(
-        alignment: const Alignment(0, -2.3),
+        alignment: widget.config.cardsScaleOriginAlignment,
         scale: scaleAnimation.value,
         child: child,
       ),

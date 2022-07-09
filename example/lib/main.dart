@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
               child: CoolCardSwiper(
                 config: const CoolCardSwiperConfig(
                   height: cardHeight,
+                  direction: SwipeDirection.upwards,
                   animationStartDistance: 100,
                   turns: 1,
                   minCardScaleFraction: 0.8,
