@@ -97,19 +97,22 @@ void main() {
       },
     );
 
-    test('can get previous card scale', () {
-      final int cardsCount = 5;
+    test(
+      'can calculate the difference in scale between each card and the card behind it',
+      () {
+        final int cardsCount = 5;
 
-      final config = CoolCardSwiperConfig(
-        direction: SwipeDirection.upwards,
-        minCardScaleFraction: 0.5,
-      );
+        final config = CoolCardSwiperConfig(
+          direction: SwipeDirection.upwards,
+          minCardScaleFraction: 0.5,
+        );
 
-      expect(
-        config.getCurrentCardScale(cardsCount, 0),
-        equals(config.getPreviousCardScale(cardsCount, 1)),
-      );
-    });
+        expect(
+          config.getCardScaleDifference(cardsCount),
+          equals(0.1),
+        );
+      },
+    );
   });
 
   group('Drag start position alignment tests', () {

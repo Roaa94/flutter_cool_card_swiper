@@ -91,15 +91,13 @@ class CoolCardSwiperConfig {
         ((1 - minCardScaleFraction) / cardsCount) * (index + 1);
   }
 
-  /// Calculates the scale of the card behind the current card based
-  /// on the minimum card scale and the number of cards
+  /// Calculates the difference in scale between each card
+  /// and the card behind it based on the [minCardScaleFraction]
   ///
-  /// This is used for calculating how much the end value of
-  /// the scale of each card will be when they scale up to replace
-  /// the swiped card
-  double getPreviousCardScale(int cardsCount, int index) {
-    return minCardScaleFraction +
-        ((1 - minCardScaleFraction) / cardsCount) * index;
+  /// This achieves having the same scale difference between all the cards
+  /// equally distributed between the [minCardScaleFraction] & 1
+  double getCardScaleDifference(int cardsCount) {
+    return (1 - minCardScaleFraction) / cardsCount;
   }
 
   /// Calculates the drag position alignment of the card
