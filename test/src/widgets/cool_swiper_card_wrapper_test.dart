@@ -25,17 +25,19 @@ void main() {
         vsync: const TestVSync(),
       );
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: CoolSwiperCardWrapper(
-            index: currentCardIndex,
-            cardsCount: cardsCount,
-            config: config,
-            animationController: animationController,
-            child: Container(),
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: CoolSwiperCardWrapper(
+              index: currentCardIndex,
+              cardsCount: cardsCount,
+              config: config,
+              animationController: animationController,
+              child: Container(),
+            ),
           ),
         ),
-      ));
+      );
 
       final scaleTransformWidgetFinder =
           find.byKey(Key('__${currentCardIndex}_swiper_card_wrapper__'));

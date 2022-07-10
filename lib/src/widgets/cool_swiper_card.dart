@@ -14,10 +14,12 @@ class CoolSwiperCard extends StatefulWidget {
     required this.cardsCount,
     required this.onAnimationTrigger,
     required this.config,
+    required this.index,
   }) : super(key: key);
 
   final Widget child;
   final int cardsCount;
+  final int index;
 
   /// Callback to trigger animation logic in the parent stack
   final Function onAnimationTrigger;
@@ -53,9 +55,9 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
   /// happen with a negative or positive angle
   void _onVerticalDragStart(DragStartDetails details) {
     double screenWidth = MediaQuery.of(context).size.width;
-
     final xPosition = details.globalPosition.dx;
     final yPosition = details.localPosition.dy;
+
     final angleMultiplier = xPosition > screenWidth / 2 ? -1 : 1;
     rotationAnimationTween.end = widget.config.turns * 360.0 * angleMultiplier;
 
@@ -68,6 +70,7 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
       );
       onTapRotationTurns =
           (widget.config.onTapRotationAngle / 360) * angleMultiplier;
+
       // If the drag duration is larger than zero, rest to zero
       // to allow the card to move with user finger/mouse smoothly
       if (dragDuration > Duration.zero) {
@@ -95,7 +98,6 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
       slideBackAnimationTween.end =
           (widget.config.throwDistanceOnDragEnd + yDragOffset.abs()) *
               widget.config.direction.multiplierReversed;
-
       animationController.forward().then((value) {
         setState(() {
           onTapRotationTurns = 0;
@@ -183,9 +185,10 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
           // triggered on user touch/click & hold
           // Or the DRAG START ANIMATION
           child: AnimatedRotation(
+            key: Key('__small_angle_rotation_widget_${widget.index}__'),
             turns: onTapRotationTurns,
             alignment: dragStartRotationAlignment,
-            duration: const Duration(milliseconds: 200),
+            duration: widget.config.smallAngleRotationDuration,
             child: widget.child,
           ),
           builder: (c, child) {
@@ -201,10 +204,12 @@ class _CoolSwiperCardState extends State<CoolSwiperCard>
                 offset: Offset(0, slideBackAnimation.value),
                 child: Transform.rotate(
                   // rotate
+                  key: Key('__swipe_rotation_animation_${widget.index}__'),
                   angle: rotationAnimation.value * (math.pi / 180),
                   alignment: Alignment.center,
                   child: Transform.scale(
                     // Scale down to scale of the smallest card in stack
+                    key: Key('__swipe_scale_animation_${widget.index}__'),
                     scale: scaleAnimation.value,
                     alignment: widget.config.cardsScaleOriginAlignment,
                     child: child,

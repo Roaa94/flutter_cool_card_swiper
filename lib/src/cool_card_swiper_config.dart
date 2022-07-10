@@ -81,6 +81,8 @@ class CoolCardSwiperConfig {
   /// reaching its final place
   final Duration swipeAnimationDuration = const Duration(milliseconds: 500);
 
+  final Duration smallAngleRotationDuration = const Duration(milliseconds: 200);
+
   /// Calculates the scale of the current card based
   /// on the minimum card scale and the number of cards
   ///

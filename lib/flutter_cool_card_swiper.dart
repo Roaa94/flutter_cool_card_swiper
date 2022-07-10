@@ -37,6 +37,7 @@ class _CoolCardSwiperState extends State<CoolCardSwiper>
           return CoolSwiperCard(
             key: ValueKey('__animated_card_${i}__'),
             cardsCount: widget.children.length,
+            index: i,
             config: widget.config,
             onAnimationTrigger: _onAnimationTrigger,
             child: widget.config.isListReversed
