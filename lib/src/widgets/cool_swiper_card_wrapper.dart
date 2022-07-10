@@ -38,10 +38,8 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
   void initState() {
     super.initState();
 
-    double previousCardScale = widget.config.getPreviousCardScale(
-      widget.cardsCount,
-      widget.index,
-    );
+    double cardScaleDifference =
+        widget.config.getCardScaleDifference(widget.cardsCount);
 
     double currentCardScale = widget.config.getCurrentCardScale(
       widget.cardsCount,
@@ -52,7 +50,7 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
 
     scaleAnimation = Tween<double>(
       begin: currentCardScale,
-      end: currentCardScale + currentCardScale - previousCardScale,
+      end: currentCardScale + cardScaleDifference,
     ).animate(
       CurvedAnimation(
         parent: animationController,
@@ -66,6 +64,7 @@ class _CoolSwiperCardWrapperState extends State<CoolSwiperCardWrapper>
     return AnimatedBuilder(
       animation: animationController,
       builder: (c, child) => Transform.scale(
+        key: Key('__${widget.index}_swiper_card_wrapper__'),
         alignment: widget.config.cardsScaleOriginAlignment,
         scale: scaleAnimation.value,
         child: child,
